@@ -9,15 +9,15 @@ public class ProgramRepository : AbstractConservicesRepository, IProgramReposito
 {
 	public async Task<IEnumerable<ProgramItem>> GetAllAsync(string eventId)
 	{
-		var uri = new ConservicesRequestUri().WithSegments("event", eventId, "programm");
+		var uri = new ConservicesRequestUri().WithSegments("convention", eventId, "programms");
 
 		var request = await GetAsync(uri);
 
 		if (!request.IsSuccess || string.IsNullOrEmpty(request.ResponseBody))
 			return [];
 
-		var result = Serializer.Deserialize<Dictionary<string, ProgramItem>>(request.ResponseBody);
+		var result = Serializer.Deserialize<ProgramItem[]>(request.ResponseBody);
 
-		return result is null ? [] : result.Values.ToArray();
+		return result ?? [];
 	}
 }
