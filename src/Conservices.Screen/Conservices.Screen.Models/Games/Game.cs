@@ -10,9 +10,6 @@ public class Game : IHasStartTime
 	[JsonPropertyName("id")]
 	public required string Id { get; set; }
 
-	[JsonPropertyName("event_id")]
-	public required string EventId { get; set; }
-
 	[JsonPropertyName("title")]
 	public required string Title { get; set; }
 
@@ -31,46 +28,50 @@ public class Game : IHasStartTime
 	[JsonPropertyName("teaser")]
 	public string Teaser { get; set; } = string.Empty;
 
-	[JsonPropertyName("alias_game_master")]
-	public string? AliasGameMaster { get; set; } = string.Empty;
+	[JsonPropertyName("game_master")]
+	public required string GameMaster { get; set; }
+
+	[JsonPropertyName("start")]
+	public DateTime Start { get; set; }
 
 	[JsonPropertyName("duration")]
-	public TimeSpan Duration { get; set; }
+	public int DurationMinutes { get; set; }
+
+	[JsonIgnore]
+	public TimeSpan Duration => TimeSpan.FromMinutes(DurationMinutes);
+
+	public DateTime? End => Start + Duration;
 
 	[JsonPropertyName("player_min")]
 	public int PlayerMin { get; set; }
 
 	[JsonPropertyName("player_max")]
 	public int PlayerMax { get; set; }
+	
+	[JsonPropertyName("player_count")]
+	public int? PlayerCount { get; set; }
 
 	[JsonPropertyName("age_min")]
-	public int AgeMin { get; set; }
+	public int? AgeMin { get; set; }
 
 	[JsonPropertyName("age_max")]
 	public int? AgeMax { get; set; }
 
-	[JsonPropertyName("game_master")]
-	public required GameMaster GameMaster { get; set; }
+	[JsonPropertyName("has_free_slots")]
+	public bool HasFreeSlots { get; set; }
 
-	[JsonPropertyName("start_timestamp")]
-	public int StartTimestamp { get; set; }
-	
-	[JsonIgnore]
-	public DateTime Start
-	{
-		get => DateTimeOffset.FromUnixTimeSeconds(StartTimestamp)
-			.UtcDateTime;
-		set => _ = value;
-	}
+	[JsonPropertyName("language")]
+	public required Language Language { get; set; }
 
-	public DateTime? End => Start + Duration;
+	[JsonPropertyName("tags")]
+	public IList<Label> Tags { get; set; } = [];
 
-	[JsonPropertyName("player")]
-	public IList<Player> Players { get; set; } = [];
-
-	[JsonPropertyName("label")]
-	public IList<Label> Labels { get; set; } = [];
-
-	[JsonPropertyName("table")]
+	[JsonPropertyName("tables")]
 	public IList<Table> Tables { get; set; } = [];
+}
+
+public class Language
+{
+	[JsonPropertyName("name")]
+	public required string Name { get; set; }
 }

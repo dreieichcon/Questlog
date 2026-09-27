@@ -9,15 +9,11 @@
 
 @code {
 
-    [Parameter]
-    public required GameMaster User { get; set; }
-    
-    [Parameter]
-    public string? Alias { get; set; }
-
+    [Parameter, EditorRequired]
+    public required string Name { get; set; }
     private MarkupString GameMasterText()
     {
-        return (MarkupString)(Alias ?? User.Name).FormatUserName();
+        return (MarkupString)Name.FormatUserName();
     }
     
 }

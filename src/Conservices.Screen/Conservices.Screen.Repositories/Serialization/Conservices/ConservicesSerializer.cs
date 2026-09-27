@@ -12,7 +12,7 @@ public class ConservicesSerializer : AbstractSerializer
 			WriteIndented = true,
 			Converters =
 			{
-				new ConservicesBoolConverter(),
+				// new ConservicesBoolConverter(),
 				new ConservicesDatetimeConverter(),
 				new ConservicesTimeSpanConverter(),
 			}

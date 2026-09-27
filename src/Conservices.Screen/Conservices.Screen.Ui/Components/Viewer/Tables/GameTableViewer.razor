@@ -25,13 +25,13 @@
         {
             <tr id="row-@index" class="@GetRowClass(index, Items.Count())">
                 <TitleCellWithAge MinimumAge="@item.AgeMin" Title="@item.Title"/>
-                <SystemCell System="@item.System" Version="@item.SystemVersion"/>    
-                <FreeSeatsCell Max="@item.PlayerMax" Current="@item.Players.Count"/>
-                <GameMasterCell User="@item.GameMaster" Alias="@item.AliasGameMaster"/>
+                <SystemCell System="@item.System" Version="@item.SystemVersion"/>
+                <FreeSeatsCell Current="@(item.PlayerCount ?? 0)" Max="@item.PlayerMax"/>
+                <GameMasterCell Name="@item.GameMaster"/>
                 <TableCell Tables="@item.Tables"/>
                 <DurationCell Duration="@item.Duration"/>
                 <StartTimeCell StartTimeUtc="@item.Start" IsOnlyOneDay="@IsOnlyOneDay()"/>
-            </tr>  
+            </tr>
         }
     </TableBody>
 </TableViewer>
@@ -51,8 +51,5 @@
 
         Items = items;
     }
-    
-
-    
     
 }
