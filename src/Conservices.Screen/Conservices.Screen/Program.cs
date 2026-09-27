@@ -19,6 +19,7 @@ builder.Services.AddRazorComponents()
 
 builder.Services.AddRadzenComponents();
 
+builder.Services.AddMemoryCache();
 
 builder.Services.AddSingleton<ITimerService, TimerService>();
 builder.Services.AddSingleton<IDisplaySyncService, DisplaySyncService>();
