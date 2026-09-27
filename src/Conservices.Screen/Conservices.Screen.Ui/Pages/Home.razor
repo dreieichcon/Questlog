@@ -25,24 +25,10 @@
 
     protected override async Task OnInitializedAsync()
     {
-        await InvokeAsync(StateHasChanged);
         Conventions = await ConventionService.GetAllAsync();
+        await InvokeAsync(StateHasChanged);
     }
 
-    private IEnumerable<Convention> Conventions { get; set; } =
-    [
-        new()
-        {
-            Name = "DreieichCon 2025",
-            Id = Guid.NewGuid()
-                .ToString(),
-        },
-        new()
-        {
-            Name = "BuCon 2025",
-            Id = Guid.NewGuid()
-                .ToString(),
-        }
-    ];
+    private IEnumerable<Convention> Conventions { get; set; } = [];
 
 }

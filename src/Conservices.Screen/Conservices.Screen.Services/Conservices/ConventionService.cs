@@ -1,26 +1,23 @@
 using Conservices.Screen.Interfaces.Conservices;
 using Conservices.Screen.Interfaces.Repositories;
 using Conservices.Screen.Models.Convention;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Conservices.Screen.Services.Conservices;
 
-public class ConventionService(IConventionRepository conventionRepository)
-	: AbstractConService<Convention>, IConventionService
+public class ConventionService(IConventionRepository conventionRepository, IMemoryCache cache)
+	: AbstractKeyedConService<Convention>(cache), IConventionService
 {
 	protected override TimeSpan RefreshInterval => TimeSpan.FromHours(1);
 
-	protected override async Task<IEnumerable<Convention>> GetItemsAsync()
-		=> await conventionRepository.GetAllAsync();
+	protected override Task<IEnumerable<Convention>> GetItemsForConventionAsync(string eventId)
+		=> conventionRepository.GetAllAsync();
 
-	public async Task<IEnumerable<Convention>> GetAllAsync()
-	{
-		await RefreshIfNeededAsync();
-		return Items;
-	}
+	public async Task<IEnumerable<Convention>> GetAllAsync() => await GetItemsAsync();
 
 	public async Task<Convention?> GetAsync(string id)
 	{
-		await RefreshIfNeededAsync();
-		return Items.FirstOrDefault(x => x.Id == id);
+		var items = await GetItemsAsync();
+		return items.FirstOrDefault(x => x.Id == id);
 	}
 }

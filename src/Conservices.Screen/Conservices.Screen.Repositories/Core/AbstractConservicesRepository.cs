@@ -7,6 +7,11 @@ namespace Conservices.Screen.Repositories.Core;
 public class AbstractConservicesRepository : AbstractHttpRepository
 {
 	protected readonly ConservicesSerializer Serializer = new();
+
+	public AbstractConservicesRepository()
+	{
+		Log += (_, e) => Console.WriteLine(e.Message);
+	}
 	public override void SetGetHeaders()
 	{
 		base.SetGetHeaders();

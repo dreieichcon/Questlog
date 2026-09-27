@@ -8,8 +8,11 @@
     {
         <div class="header-image-name">
             <div class="header-image-container">
-                <img src="https://conservices.de/assets/img/events/@Convention.logo"
-                     alt="Logo for @Convention.Name"/>
+                @if (Convention.Logo != null)
+                {
+                    <img src="@LogoUrl"
+                         alt="Logo for @Convention.Name"/>
+                }
             </div>
             <div class="header-text">@Convention.Name</div>
         </div>
@@ -22,6 +25,8 @@
 
     [Parameter]
     public Convention? Convention { get; set; }
+
+    private string LogoUrl => $"https://conservices.de{Convention?.Logo}";
 
     protected override async Task OnInitializedAsync()
     {

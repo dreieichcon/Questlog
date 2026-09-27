@@ -26,7 +26,7 @@ else
                 Select a module to display information
             </div>
         </div>
-        @if (HasProgram())
+        @if (Convention.HasProgramModule)
         {
             <a class="d-flex el-1 mobile-box paper justify-content-center" href="event/@EventId/program">
                 <div class="h2">Program</div>
@@ -35,7 +35,7 @@ else
                 <div class="h2">Program Room View</div>
             </a>
         }
-        @if (HasGames())
+        @if (Convention.HasGameModule)
         {
             <a class="d-flex el-1 mobile-box paper justify-content-center" href="event/@EventId/games">
                 <div class="h2">Games</div>
@@ -44,7 +44,7 @@ else
                 <div class="h2">Games per Building</div>
             </a>
         }
-        @if (HasProgram() && HasGames())
+        @if (Convention.HasProgramModule && Convention.HasGameModule)
         {
             <a class="d-flex el-1 mobile-box paper justify-content-center" href="event/@EventId/programAndGames">
                 <div class="h2">Program & Games</div>
@@ -66,11 +66,5 @@ else
     }
 
     private Convention? Convention { get; set; }
-
-    private bool HasProgram()
-        => Convention?.ConventionModules.Any(x => x.name == "Programm") ?? false;
-    
-    private bool HasGames()
-        => Convention?.ConventionModules.Any(x => x.name == "Spielrunden") ?? false;
 
 }

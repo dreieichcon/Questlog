@@ -8,7 +8,7 @@ public class ConventionRepository : AbstractConservicesRepository, IConventionRe
 {
 	public async Task<IEnumerable<Convention>> GetAllAsync()
 	{
-		var uri = new ConservicesRequestUri().WithSegments("event");
+		var uri = new ConservicesRequestUri().WithSegments("convention");
 		
 		var result = await GetAsync(uri);
 
