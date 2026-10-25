@@ -1,0 +1,133 @@
+/* 1rem is 16px at 1920x1080, everything scales with the screen */
+html {
+	font-size: min(1.4815vh, 0.8333vw);
+}
+
+html, body {
+	height: 100vh;
+	width: 100vw;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+
+::-webkit-scrollbar {
+	display: none;
+}
+
+:root {
+	--header-height: 7.425rem;
+	--footer-height: 6.75rem;
+	--row-min-height: 5.4rem;
+	--header-font-size: 5.4rem;
+	--footer-font-size: 4.05rem;
+
+	--background: #FFFFFF;
+	--paper: #D0D0D0;
+	--paper-highlight: #EBEBEB;
+	--paper-border: #C2C2C2;
+	--border-alpha: #00000044;
+	--foreground: #323031;
+	--background-image: #222222;
+	--primary: #0892A5;
+	--success: #00AA00;
+	--danger: #D32F2F;
+}
+
+.theme-dark {
+	--background: #222222;
+	--background-image: #222222;
+	--paper: #333333;
+	--paper-highlight: #555555;
+	--paper-border: #666666;
+	--border-alpha: #FFFFFF44;
+	--foreground: #FFFFFF;
+}
+
+a {
+	text-decoration: none;
+	color: var(--foreground);
+}
+
+.h0 {
+	font-size: 3rem;
+}
+
+.h1 {
+	font-size: 2.5rem;
+}
+
+.h2 {
+	font-size: 2rem;
+}
+
+.h3 {
+	font-size: 1.5rem;
+}
+
+.paper {
+	background-color: var(--paper);
+	border: 1px solid var(--paper-border);
+	border-radius: 0.5rem;
+	padding: 0.5rem;
+	margin: 0.5rem;
+}
+
+.paper-nopad {
+	background-color: var(--paper);
+	border: 1px solid var(--paper-border);
+	border-radius: 0.5rem;
+}
+
+.el-1 {
+	filter: drop-shadow(1px 1px 1px #00000033);
+}
+
+#connection-status {
+	position: fixed;
+	right: 0.5rem;
+	bottom: 0.25rem;
+	z-index: 1000;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	font-size: 1.25rem;
+	opacity: 0.6;
+	color: var(--danger);
+}
+
+#connection-status[hidden] {
+	display: none;
+}
+
+#connection-status svg {
+	width: 1.5rem;
+	height: 1.5rem;
+}
+
+#blazor-error-ui {
+	display: none;
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	box-sizing: border-box;
+	z-index: 1001;
+	padding: 0.5rem 1.5rem;
+	font-size: 1.5rem;
+	background-color: var(--paper);
+	color: var(--foreground);
+	border-top: 0.125rem solid var(--primary);
+}
+
+#blazor-error-ui .reload {
+	margin-left: 1rem;
+	text-decoration: underline;
+}
+
+#blazor-error-ui .dismiss {
+	position: absolute;
+	right: 1rem;
+	top: 0.5rem;
+	cursor: pointer;
+}
