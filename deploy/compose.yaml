@@ -1,0 +1,15 @@
+services:
+  questlog:
+    platform: linux/amd64
+    image: hub.bvb-dreieich.de/questlog/questlog
+    container_name: questlog
+    restart: always
+    build:
+      context: ../src/Questlog
+      dockerfile: Questlog/Dockerfile
+    ports:
+      - "8090:8080"
+    environment:
+      QUESTLOG_TZ: Europe/Berlin
+      QUESTLOG_LAT: "50.02485985471239"
+      QUESTLOG_LNG: "8.66270997993345"
