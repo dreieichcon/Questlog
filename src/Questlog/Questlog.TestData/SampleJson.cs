@@ -105,4 +105,12 @@ public static class SampleJson
 			}
 		]
 		""";
+
+	public const string SunState = """
+		{"results":{"date":"2026-10-25","sunrise":"06:00:43","sunset":"16:17:24","first_light":"04:12:16","last_light":"18:05:39","dawn":"05:27:27","dusk":"16:50:37","solar_noon":"11:09:26","golden_hour":"15:31:28","day_length":"10:16:40","nautical_twilight_begin":"04:49:42","nautical_twilight_end":"17:28:19","timezone":"UTC","utc_offset":0,"sun_altitude":27.82,"sun_azimuth":180,"sunrise_azimuth":107.52,"sunset_azimuth":252.24,"moonrise":"15:29:29","moonset":"05:08:40","moon_illumination":99.26,"moon_phase":"Full Moon","moon_phase_value":0.47,"moon_always_up":false,"moon_always_down":false,"elevation":132,"sun_status":"normal","golden_hour_morning":{"begin":"05:40:13","end":"06:46:41"},"golden_hour_evening":{"begin":"15:31:28","end":"16:37:52"},"blue_hour_morning":{"begin":"05:27:27","end":"05:40:13"},"blue_hour_evening":{"begin":"16:37:52","end":"16:50:37"}},"status":"OK","tzid":"UTC"}
+		""";
+
+	public const string SunStateInvalidRequest = """
+		{"results":[],"status":"INVALID_REQUEST","tzid":"UTC"}
+		""";
 }
