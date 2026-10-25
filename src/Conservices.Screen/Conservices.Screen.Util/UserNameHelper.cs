@@ -18,7 +18,7 @@ public static class UserNameHelper
 		
 		split ??= SplitAtHyphenations(input);
 		
-		return string.Join("<wbr>", split);
+		return string.Join("<wbr>", split.Where(part => part.Length > 0));
 	}
 
 	private static IEnumerable<string> SplitAtHyphenations(string input)

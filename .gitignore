@@ -1,14 +1,17 @@
-// Ignore idea files
+# Ignore idea files
 **/.idea/**
 
-// Ignore .net build files
+# Ignore .net build files
 **/bin/**
 **/obj/**
 
-// Ignore user files
+# Ignore user files
 *.DotSettings.user
 
-// Ignore env :)
+# Ignore env :)
 **/.env
 
 .DS_Store
+
+# Ignore local debugging files
+**/local/**

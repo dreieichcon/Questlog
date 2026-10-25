@@ -48,7 +48,7 @@ public class Game : IHasStartTime
 	[JsonPropertyName("player_max")]
 	public int PlayerMax { get; set; }
 	
-	[JsonPropertyName("player_count")]
+	[JsonPropertyName("players_count")]
 	public int? PlayerCount { get; set; }
 
 	[JsonPropertyName("age_min")]
