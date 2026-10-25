@@ -1,7 +1,7 @@
 using System.Text.Json;
 using Questlog.Core.Models;
 using Questlog.Core.Serialization;
-using Questlog.Core.Tests.TestData;
+using Questlog.TestData;
 
 namespace Questlog.Core.Tests.Serialization;
 

@@ -17,6 +17,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Questlog.Repositories\Questlog.Repositories.csproj" />
+    <ProjectReference Include="..\Questlog.TestData\Questlog.TestData.csproj" />
   </ItemGroup>
 
 </Project>

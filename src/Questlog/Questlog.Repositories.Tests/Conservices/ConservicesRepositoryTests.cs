@@ -1,7 +1,7 @@
 using System.Net;
 using Questlog.Repositories.Conservices;
 using Questlog.Repositories.Tests.Helpers;
-using Questlog.Repositories.Tests.TestData;
+using Questlog.TestData;
 
 namespace Questlog.Repositories.Tests.Conservices;
 

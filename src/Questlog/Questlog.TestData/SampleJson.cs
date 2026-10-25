@@ -1,4 +1,4 @@
-namespace Questlog.Repositories.Tests.TestData;
+namespace Questlog.TestData;
 
 public static class SampleJson
 {
