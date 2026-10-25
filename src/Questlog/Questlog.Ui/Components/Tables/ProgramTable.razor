@@ -1,0 +1,18 @@
+@inherits EventTableBase<Questlog.Core.Models.ProgramItem>
+
+<DataTable Items="Items" EmptyText="@Strings.Get("Program_Empty")">
+	<Header>
+		<tr>
+			<HeaderCell Width="55">@Strings.Get("Column_Title")</HeaderCell>
+			<HeaderCell>@Strings.Get("Column_Type")</HeaderCell>
+			<HeaderCell>@Strings.Get("Column_Location")</HeaderCell>
+			<HeaderCell>@Strings.Get("Column_StartTime")</HeaderCell>
+		</tr>
+	</Header>
+	<RowTemplate Context="item">
+		<TitleCell Title="@item.Title" MinimumAge="@item.AgeMin"/>
+		<TagCell Tags="@item.Tags"/>
+		<LocationCell Tables="@item.Tables"/>
+		<StartTimeCell Start="@item.Start" ShowDay="@ShowDay"/>
+	</RowTemplate>
+</DataTable>

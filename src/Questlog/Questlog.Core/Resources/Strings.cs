@@ -3,7 +3,7 @@ using System.Resources;
 
 namespace Questlog.Core.Resources;
 
-internal static class Strings
+public static class Strings
 {
 	private static readonly ResourceManager Manager = new("Questlog.Core.Resources.Strings", typeof(Strings).Assembly);
 

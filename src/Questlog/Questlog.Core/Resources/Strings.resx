@@ -20,4 +20,15 @@
   <data name="Delta_Hour_Many" xml:space="preserve"><value>{0} Stunden</value></data>
   <data name="Delta_Minute_One" xml:space="preserve"><value>{0} Minute</value></data>
   <data name="Delta_Minute_Many" xml:space="preserve"><value>{0} Minuten</value></data>
+  <data name="Column_Title" xml:space="preserve"><value>Titel</value></data>
+  <data name="Column_System" xml:space="preserve"><value>System</value></data>
+  <data name="Column_Players" xml:space="preserve"><value>Spieler</value></data>
+  <data name="Column_GameMaster" xml:space="preserve"><value>Leiter</value></data>
+  <data name="Column_Location" xml:space="preserve"><value>Ort</value></data>
+  <data name="Column_Duration" xml:space="preserve"><value>Dauer</value></data>
+  <data name="Column_Start" xml:space="preserve"><value>Start</value></data>
+  <data name="Column_Type" xml:space="preserve"><value>Typ</value></data>
+  <data name="Column_StartTime" xml:space="preserve"><value>Startzeit</value></data>
+  <data name="Games_Empty" xml:space="preserve"><value>Es gibt keine weiteren Spielrunden für diese Veranstaltung</value></data>
+  <data name="Program_Empty" xml:space="preserve"><value>Es gibt keine weiteren Programmpunkte für diese Veranstaltung</value></data>
 </root>

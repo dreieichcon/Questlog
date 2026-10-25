@@ -1,0 +1,24 @@
+@inherits EventTableBase<Questlog.Core.Models.Game>
+
+<DataTable Items="Items" EmptyText="@Strings.Get("Games_Empty")">
+	<Header>
+		<tr>
+			<HeaderCell Width="30" Small>@Strings.Get("Column_Title")</HeaderCell>
+			<HeaderCell Width="14" Small>@Strings.Get("Column_System")</HeaderCell>
+			<HeaderCell Width="7" Small>@Strings.Get("Column_Players")</HeaderCell>
+			<HeaderCell Width="10" Small>@Strings.Get("Column_GameMaster")</HeaderCell>
+			<HeaderCell Small>@Strings.Get("Column_Location")</HeaderCell>
+			<HeaderCell Width="8" Small>@Strings.Get("Column_Duration")</HeaderCell>
+			<HeaderCell Small>@Strings.Get("Column_Start")</HeaderCell>
+		</tr>
+	</Header>
+	<RowTemplate Context="game">
+		<TitleCell Title="@game.Title" MinimumAge="@game.AgeMin"/>
+		<SystemCell Name="@game.System" Version="@game.SystemVersion"/>
+		<PlayersCell Current="@(game.PlayerCount ?? 0)" Max="@game.PlayerMax"/>
+		<GameMasterCell Name="@game.GameMaster"/>
+		<LocationCell Tables="@game.Tables"/>
+		<DurationCell Duration="@game.Duration"/>
+		<StartTimeCell Start="@game.Start" ShowDay="@ShowDay"/>
+	</RowTemplate>
+</DataTable>
