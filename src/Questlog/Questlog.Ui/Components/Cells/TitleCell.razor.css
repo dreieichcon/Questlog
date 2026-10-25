@@ -1,0 +1,35 @@
+.title-cell {
+	font-size: 2.5rem;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.title-text {
+	flex: 1;
+	min-width: 0;
+}
+
+.age-badge {
+	flex-shrink: 0;
+	width: 4rem;
+	height: 4rem;
+	margin-left: 1rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 10%;
+	font-size: 2rem;
+	font-weight: bold;
+}
+
+.age-16 {
+	background: #35A9E5;
+	border: 0.1875rem solid #2D7FAB;
+}
+
+.age-18 {
+	background: #EE161F88;
+	border: 0.1875rem solid #B2161E;
+}

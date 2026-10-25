@@ -1,0 +1,12 @@
+th {
+	padding: 0.5rem 1rem;
+	font-weight: bold;
+}
+
+.header-large {
+	font-size: 3rem;
+}
+
+.header-small {
+	font-size: 2rem;
+}

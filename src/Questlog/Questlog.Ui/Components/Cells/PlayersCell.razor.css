@@ -1,0 +1,8 @@
+.players-cell {
+	font-size: 2rem;
+	text-align: center;
+}
+
+.seats-free {
+	color: var(--success);
+}

@@ -131,3 +131,8 @@ a {
 	top: 0.5rem;
 	cursor: pointer;
 }
+
+.table-cell {
+	padding: 1rem;
+	border-left: 1px solid var(--paper-border);
+}
