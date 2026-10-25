@@ -6,6 +6,10 @@ namespace Questlog.Ui.Components;
 
 public partial class DataTable<TItem> : ComponentBase, IDisposable
 {
+	private ElementReference _container;
+
+	private bool _wasShown = true;
+
 	[Inject]
 	private IDisplaySyncService DisplaySyncService { get; set; } = null!;
 
@@ -24,10 +28,24 @@ public partial class DataTable<TItem> : ComponentBase, IDisposable
 	[Parameter]
 	public string EmptyText { get; set; } = string.Empty;
 
+	[Parameter]
+	public string RowIdPrefix { get; set; } = "row";
+
+	[Parameter]
+	public bool IsShown { get; set; } = true;
+
 	private int ActiveIndex => Items.Count == 0 ? -1 : DisplaySyncService.DisplayIndex % Math.Min(Items.Count, DisplaySyncService.MaxItems);
 
 	protected override void OnInitialized()
 		=> DisplaySyncService.DisplayChanged += OnDisplayChanged;
+
+	protected override async Task OnAfterRenderAsync(bool firstRender)
+	{
+		if (_wasShown && !IsShown)
+			await InvokeJsAsync("resetScroll", _container);
+
+		_wasShown = IsShown;
+	}
 
 	/// <summary>
 	/// Removes the subscription to the display changes.
@@ -35,7 +53,7 @@ public partial class DataTable<TItem> : ComponentBase, IDisposable
 	public void Dispose()
 		=> DisplaySyncService.DisplayChanged -= OnDisplayChanged;
 
-	private static string RowId(int index) => $"row-{index}";
+	private string RowId(int index) => $"{RowIdPrefix}-{index}";
 
 	private void OnDisplayChanged(object? sender, EventArgs e)
 		=> _ = InvokeAsync(ShowActiveRowAsync);
@@ -44,12 +62,15 @@ public partial class DataTable<TItem> : ComponentBase, IDisposable
 	{
 		StateHasChanged();
 
-		if (ActiveIndex < 0)
-			return;
+		if (IsShown && ActiveIndex >= 0)
+			await InvokeJsAsync("scrollToElement", RowId(ActiveIndex));
+	}
 
+	private async Task InvokeJsAsync(string function, params object[] arguments)
+	{
 		try
 		{
-			await JsRuntime.InvokeVoidAsync("scrollToElement", RowId(ActiveIndex));
+			await JsRuntime.InvokeVoidAsync(function, arguments);
 		}
 		catch (JSDisconnectedException)
 		{

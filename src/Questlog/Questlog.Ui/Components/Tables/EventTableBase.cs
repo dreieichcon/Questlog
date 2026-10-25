@@ -24,6 +24,9 @@ public abstract class EventTableBase<TItem> : ComponentBase, IDisposable where T
 	[Parameter]
 	public EventCallback<int> CycleLengthChanged { get; set; }
 
+	[Parameter]
+	public bool IsShown { get; set; } = true;
+
 	protected IReadOnlyList<TItem> Items { get; private set; } = [];
 
 	protected bool ShowDay { get; private set; }

@@ -1,6 +1,6 @@
 @typeparam TItem
 
-<div class="data-table">
+<div class="data-table @(IsShown ? string.Empty : "table-hidden")" @ref="_container">
 	<table>
 		<thead>
 			@Header

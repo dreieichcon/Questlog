@@ -1,6 +1,6 @@
 @inherits EventTableBase<Questlog.Core.Models.ProgramItem>
 
-<DataTable Items="Items" EmptyText="@Strings.Get("Program_Empty")">
+<DataTable Items="Items" RowIdPrefix="program-row" IsShown="IsShown" EmptyText="@Strings.Get("Program_Empty")">
 	<Header>
 		<tr>
 			<HeaderCell Width="55">@Strings.Get("Column_Title")</HeaderCell>

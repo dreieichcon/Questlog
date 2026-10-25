@@ -7,6 +7,10 @@
 	border-radius: 0.5rem;
 }
 
+.table-hidden {
+	visibility: hidden;
+}
+
 table {
 	table-layout: fixed;
 	width: 100%;

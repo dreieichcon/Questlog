@@ -1,0 +1,9 @@
+.combined-view {
+	position: relative;
+	height: 100%;
+}
+
+.pane {
+	position: absolute;
+	inset: 0;
+}

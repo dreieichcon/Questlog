@@ -10,7 +10,7 @@
 	{
 		<ScreenFrame Title="@Convention.Name" LogoUrl="@Convention.LogoUrl">
 			<FooterLeft>@ViewName</FooterLeft>
-			<FooterRight><CyclePosition Length="_cycleLength"/></FooterRight>
+			<FooterRight><CyclePosition Length="CycleLength ?? _cycleLength"/></FooterRight>
 			<ChildContent>@ChildContent?.Invoke(this)</ChildContent>
 		</ScreenFrame>
 	}

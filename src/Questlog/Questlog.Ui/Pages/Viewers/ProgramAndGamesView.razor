@@ -1,0 +1,13 @@
+@page "/event/{EventId}/programAndGames"
+@using Questlog.Core.Models
+
+<ViewerFrame EventId="@EventId" ViewName="@ViewName" CycleLength="@ShownLength">
+	<div class="combined-view">
+		<div class="pane">
+			<ProgramTable EventId="@EventId" IsShown="@IsShown(ActiveDisplay.Program)" CycleLengthChanged="OnProgramLengthChanged"/>
+		</div>
+		<div class="pane">
+			<GameTable EventId="@EventId" IsShown="@IsShown(ActiveDisplay.Games)" CycleLengthChanged="OnGamesLengthChanged"/>
+		</div>
+	</div>
+</ViewerFrame>

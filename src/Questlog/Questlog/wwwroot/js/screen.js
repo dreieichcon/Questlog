@@ -7,3 +7,7 @@ window.scrollToElement = (elementId) => {
 		});
 	}
 };
+
+window.resetScroll = (element) => {
+	element.scrollTop = 0;
+};

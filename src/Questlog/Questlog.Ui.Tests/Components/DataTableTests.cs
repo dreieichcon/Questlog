@@ -11,7 +11,7 @@ public class DataTableTests : BunitContext
 {
 	private readonly IDisplaySyncService _displaySync = Substitute.For<IDisplaySyncService>();
 
-	private IRenderedComponent<DataTable<string>> RenderTable(IReadOnlyList<string> items, int displayIndex = 0)
+	private IRenderedComponent<DataTable<string>> RenderTable(IReadOnlyList<string> items, int displayIndex = 0, bool isShown = true)
 	{
 		_displaySync.MaxItems.Returns(20);
 		_displaySync.DisplayIndex.Returns(displayIndex);
@@ -22,7 +22,8 @@ public class DataTableTests : BunitContext
 			.Add(table => table.Items, items)
 			.Add(table => table.Header, "<tr><th>Kopf</th></tr>")
 			.Add(table => table.RowTemplate, item => $"<td>{item}</td>")
-			.Add(table => table.EmptyText, "Nichts mehr"));
+			.Add(table => table.EmptyText, "Nichts mehr")
+			.Add(table => table.IsShown, isShown));
 	}
 
 	private static List<string> CreateItems(int count)
@@ -93,6 +94,57 @@ public class DataTableTests : BunitContext
 		table.WaitForAssertion(() => Assert.AreEqual("row-3", ActiveRowId(table)));
 		var invocation = JSInterop.VerifyInvoke("scrollToElement");
 		Assert.AreEqual("row-3", invocation.Arguments[0]);
+	}
+
+	[TestMethod]
+	public void Render_CustomRowIdPrefix_IsUsedForRowIds()
+	{
+		_displaySync.MaxItems.Returns(20);
+		Services.AddSingleton(_displaySync);
+		JSInterop.Mode = JSRuntimeMode.Loose;
+
+		var table = Render<DataTable<string>>(parameters => parameters
+			.Add(component => component.Items, CreateItems(2))
+			.Add(component => component.RowTemplate, item => $"<td>{item}</td>")
+			.Add(component => component.RowIdPrefix, "games-row"));
+
+		Assert.AreEqual("games-row-1", table.FindAll("tbody tr")[1].Id);
+	}
+
+	[TestMethod]
+	public void Render_NotShown_MarksTableAsHidden()
+	{
+		var table = RenderTable(CreateItems(3), isShown: false);
+
+		Assert.IsTrue(table.Find(".data-table").ClassList.Contains("table-hidden"));
+	}
+
+	[TestMethod]
+	public void Render_Shown_DoesNotMarkTableAsHidden()
+	{
+		var table = RenderTable(CreateItems(3));
+
+		Assert.IsFalse(table.Find(".data-table").ClassList.Contains("table-hidden"));
+	}
+
+	[TestMethod]
+	public void DisplayChanged_NotShown_DoesNotScroll()
+	{
+		RenderTable(CreateItems(5), isShown: false);
+
+		_displaySync.DisplayChanged += Raise.Event();
+
+		Assert.AreEqual(0, JSInterop.Invocations.Count(invocation => invocation.Identifier == "scrollToElement"));
+	}
+
+	[TestMethod]
+	public void Hide_ResetsScroll()
+	{
+		var table = RenderTable(CreateItems(5));
+
+		table.Render(parameters => parameters.Add(component => component.IsShown, false));
+
+		JSInterop.VerifyInvoke("resetScroll");
 	}
 
 	[TestMethod]

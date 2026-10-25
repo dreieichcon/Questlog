@@ -20,6 +20,9 @@ public partial class ViewerFrame : ComponentBase
 	public string ViewName { get; set; } = string.Empty;
 
 	[Parameter]
+	public int? CycleLength { get; set; }
+
+	[Parameter]
 	public RenderFragment<ViewerFrame>? ChildContent { get; set; }
 
 	private Convention? Convention { get; set; }

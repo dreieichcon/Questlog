@@ -15,16 +15,17 @@ public abstract class TableContext : BunitContext
 
 	protected readonly ITimerService TimerService = Substitute.For<ITimerService>();
 
+	protected readonly IDisplaySyncService DisplaySync = Substitute.For<IDisplaySyncService>();
+
 	protected TableContext()
 	{
-		var displaySync = Substitute.For<IDisplaySyncService>();
-		displaySync.MaxItems.Returns(20);
+		DisplaySync.MaxItems.Returns(20);
 
 		Services.AddSingleton<TimeProvider>(TimeProvider);
 		Services.AddSingleton(TimeZoneInfo.Utc);
 		Services.AddSingleton<IDisplayTimeFormatter>(new DisplayTimeFormatter(TimeProvider, TimeZoneInfo.Utc));
 		Services.AddSingleton(TimerService);
-		Services.AddSingleton(displaySync);
+		Services.AddSingleton(DisplaySync);
 		JSInterop.Mode = JSRuntimeMode.Loose;
 	}
 
