@@ -10,4 +10,8 @@
         <ProjectReference Include="..\Questlog.Core\Questlog.Core.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <PackageReference Include="Demolite.Core" Version="0.2.0" />
+    </ItemGroup>
+
 </Project>
