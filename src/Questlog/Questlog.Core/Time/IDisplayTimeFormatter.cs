@@ -11,4 +11,6 @@ public interface IDisplayTimeFormatter
 	public string DayAndTime(DateTimeOffset? value);
 
 	public string TimeDelta(DateTimeOffset? target);
+
+	public IReadOnlyList<string> DurationParts(TimeSpan duration);
 }

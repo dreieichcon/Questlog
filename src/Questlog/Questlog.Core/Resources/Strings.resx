@@ -11,6 +11,8 @@
   <data name="Weekday_Thursday" xml:space="preserve"><value>Do.</value></data>
   <data name="Weekday_Friday" xml:space="preserve"><value>Fr.</value></data>
   <data name="Weekday_Saturday" xml:space="preserve"><value>Sa.</value></data>
+  <data name="Duration_Hours" xml:space="preserve"><value>{0} Std.</value></data>
+  <data name="Duration_Minutes" xml:space="preserve"><value>{0} Min.</value></data>
   <data name="Delta_Now" xml:space="preserve"><value>Jetzt</value></data>
   <data name="Delta_Day_One" xml:space="preserve"><value>{0} Tag</value></data>
   <data name="Delta_Day_Many" xml:space="preserve"><value>{0} Tage</value></data>

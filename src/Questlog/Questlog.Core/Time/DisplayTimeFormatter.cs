@@ -65,6 +65,23 @@ public class DisplayTimeFormatter(TimeProvider timeProvider, TimeZoneInfo timeZo
 		return Minutes(delta.Minutes);
 	}
 
+	/// <summary>
+	/// Splits a duration into its hour and minute parts, omitting zero parts.
+	/// </summary>
+	public IReadOnlyList<string> DurationParts(TimeSpan duration)
+	{
+		var hours = (int)duration.TotalHours;
+		var parts = new List<string>();
+
+		if (hours > 0)
+			parts.Add(Strings.Format("Duration_Hours", hours));
+
+		if (duration.Minutes > 0)
+			parts.Add(Strings.Format("Duration_Minutes", duration.Minutes));
+
+		return parts;
+	}
+
 	private DateTimeOffset ToLocal(DateTimeOffset value)
 		=> TimeZoneInfo.ConvertTime(value, timeZone);
 

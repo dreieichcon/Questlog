@@ -214,4 +214,18 @@ public class DisplayTimeFormatterTests
 
 		Assert.AreEqual("6 Minuten", formatter.TimeDelta(target));
 	}
+
+	[TestMethod]
+	[DataRow(60, "1 Std.")]
+	[DataRow(150, "2 Std.|30 Min.")]
+	[DataRow(45, "45 Min.")]
+	[DataRow(0, "")]
+	public void DurationParts_ReturnsHourAndMinuteParts(int minutes, string expected)
+	{
+		var formatter = CreateFormatter();
+
+		var result = formatter.DurationParts(TimeSpan.FromMinutes(minutes));
+
+		Assert.AreEqual(expected, string.Join('|', result));
+	}
 }
