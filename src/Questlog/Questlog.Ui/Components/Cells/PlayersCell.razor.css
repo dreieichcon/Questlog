@@ -1,6 +1,7 @@
 .players-cell {
-	font-size: 2rem;
+	font-size: var(--cell-font-secondary);
 	text-align: center;
+	white-space: nowrap;
 }
 
 .seats-free {

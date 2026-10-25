@@ -25,6 +25,9 @@ html, body {
 	--row-min-height: 5.4rem;
 	--header-font-size: 5.4rem;
 	--footer-font-size: 4.05rem;
+	--cell-font-primary: 2.25rem;
+	--cell-font-secondary: 2rem;
+	--cell-font-detail: 1.75rem;
 
 	--background: #FFFFFF;
 	--paper: #D0D0D0;
@@ -139,4 +142,5 @@ a {
 .table-cell {
 	padding: 1rem;
 	border-left: 1px solid var(--paper-border);
+	overflow-wrap: break-word;
 }

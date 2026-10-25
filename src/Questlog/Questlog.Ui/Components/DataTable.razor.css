@@ -21,7 +21,7 @@ thead {
 }
 
 .data-row {
-	min-height: var(--row-min-height);
+	height: var(--row-min-height);
 	border-bottom: 1px solid var(--border-alpha);
 }
 

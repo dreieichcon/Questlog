@@ -1,5 +1,5 @@
 .title-cell {
-	font-size: 2.5rem;
+	font-size: var(--cell-font-primary);
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
@@ -13,14 +13,14 @@
 
 .age-badge {
 	flex-shrink: 0;
-	width: 4rem;
-	height: 4rem;
+	width: 3.5rem;
+	height: 3.5rem;
 	margin-left: 1rem;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 	border-radius: 10%;
-	font-size: 2rem;
+	font-size: 1.75rem;
 	font-weight: bold;
 }
 

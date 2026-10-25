@@ -6,11 +6,11 @@
 }
 
 .location-name {
-	font-size: 2rem;
+	font-size: var(--cell-font-secondary);
 }
 
 .wheelchair {
 	flex-shrink: 0;
-	width: 3.5rem;
-	height: 3.5rem;
+	width: 3rem;
+	height: 3rem;
 }
