@@ -1,7 +1,16 @@
 @page "/"
 
-<ScreenFrame Title="Questlog">
-	<FooterLeft>Questlog</FooterLeft>
-	<FooterRight>Platzhalter</FooterRight>
-	<ChildContent>Temporäre Startseite</ChildContent>
-</ScreenFrame>
+<MenuContainer>
+	<img class="landing-logo" src="img/conservices_questlog.png" alt="Questlog"/>
+	<div class="landing-text">@Strings.Get("Landing_Subtitle")</div>
+	<MenuGrid>
+		@foreach (var convention in Conventions)
+		{
+			<MenuLink Href="@($"event/{convention.Id}")" Text="@convention.Name"/>
+		}
+	</MenuGrid>
+	@if (Conventions.Count == 0)
+	{
+		<div class="landing-text">@Strings.Get("Landing_Empty")</div>
+	}
+</MenuContainer>

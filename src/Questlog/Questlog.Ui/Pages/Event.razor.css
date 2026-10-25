@@ -1,0 +1,15 @@
+.event-name {
+	font-size: 4rem;
+	margin-top: 1rem;
+}
+
+.event-dates {
+	font-size: 2rem;
+	text-align: center;
+	margin-bottom: 1.5rem;
+}
+
+.event-text {
+	font-size: 2.5rem;
+	margin-bottom: 1.5rem;
+}

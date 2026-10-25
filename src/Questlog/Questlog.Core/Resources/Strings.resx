@@ -31,4 +31,13 @@
   <data name="Column_StartTime" xml:space="preserve"><value>Startzeit</value></data>
   <data name="Games_Empty" xml:space="preserve"><value>Es gibt keine weiteren Spielrunden für diese Veranstaltung</value></data>
   <data name="Program_Empty" xml:space="preserve"><value>Es gibt keine weiteren Programmpunkte für diese Veranstaltung</value></data>
+  <data name="Landing_Subtitle" xml:space="preserve"><value>Veranstaltung auswählen</value></data>
+  <data name="Landing_Empty" xml:space="preserve"><value>Keine Veranstaltungen verfügbar</value></data>
+  <data name="Event_NotFound" xml:space="preserve"><value>Die Veranstaltung {0} existiert nicht</value></data>
+  <data name="Event_SelectView" xml:space="preserve"><value>Ansicht auswählen</value></data>
+  <data name="View_Program" xml:space="preserve"><value>Programm</value></data>
+  <data name="View_ProgramPerRoom" xml:space="preserve"><value>Programm pro Raum</value></data>
+  <data name="View_Games" xml:space="preserve"><value>Spielrunden</value></data>
+  <data name="View_GamesPerBuilding" xml:space="preserve"><value>Spielrunden pro Gebäude</value></data>
+  <data name="View_ProgramAndGames" xml:space="preserve"><value>Programm &amp; Spielrunden</value></data>
 </root>

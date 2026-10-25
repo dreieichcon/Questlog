@@ -1,0 +1,28 @@
+@page "/event/{EventId}"
+
+<MenuContainer>
+	@if (Convention is null)
+	{
+		<div class="event-text">@Strings.Format("Event_NotFound", EventId)</div>
+	}
+	else
+	{
+		<div class="d-flex flex-row align-items-center" style="gap: 3rem;">
+			<Logo Url="@Convention.LogoUrl" Size="10rem"/>
+			<div class="d-flex flex-column align-items-start">
+				<div class="event-name">@Convention.Name</div>
+				<div class="event-dates">
+					<div>@Formatter.DateAndTime(Convention.ConventionStart)</div>
+					<div>@Formatter.DateAndTime(Convention.ConventionEnd)</div>
+				</div>
+			</div>
+		</div>
+		<div class="event-text">@Strings.Get("Event_SelectView")</div>
+		<MenuGrid>
+			@foreach (var view in Views)
+			{
+				<MenuLink Href="@view.Href" Text="@view.Label"/>
+			}
+		</MenuGrid>
+	}
+</MenuContainer>

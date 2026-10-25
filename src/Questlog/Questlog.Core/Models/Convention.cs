@@ -1,4 +1,5 @@
 using System.Text.Json.Serialization;
+using Questlog.Core.Configuration;
 
 namespace Questlog.Core.Models;
 
@@ -12,6 +13,14 @@ public class Convention
 
 	[JsonPropertyName("logo")]
 	public string? Logo { get; set; }
+
+	[JsonIgnore]
+	public string? LogoUrl => Logo switch
+	{
+		null or "" => null,
+		var logo when logo.StartsWith("http", StringComparison.OrdinalIgnoreCase) => logo,
+		var logo => ConservicesSite.BaseUrl + logo,
+	};
 
 	[JsonPropertyName("begin_convention")]
 	public DateTimeOffset? ConventionStart { get; set; }
