@@ -4,7 +4,7 @@ using Questlog.Core.Models;
 namespace Questlog.Services;
 
 public class ConventionService(IConservicesRepository repository, TimeProvider timeProvider)
-	: CachedListService<Convention>(timeProvider, TimeSpan.FromHours(1)), IConventionService
+	: CachedValueService<IReadOnlyList<Convention>>(timeProvider, TimeSpan.FromHours(1)), IConventionService
 {
 	private const string CacheKey = "conventions";
 
@@ -12,7 +12,7 @@ public class ConventionService(IConservicesRepository repository, TimeProvider t
 	/// Returns all conventions.
 	/// </summary>
 	public Task<IReadOnlyList<Convention>> GetAllAsync(CancellationToken ct = default)
-		=> GetCachedAsync(CacheKey, repository.GetConventionsAsync, ct);
+		=> GetCachedAsync(CacheKey, repository.GetConventionsAsync, [], ct);
 
 	/// <summary>
 	/// Returns the convention with the id, or null if it does not exist.

@@ -4,13 +4,13 @@ using Questlog.Core.Models;
 namespace Questlog.Services;
 
 public class GameService(IConservicesRepository repository, TimeProvider timeProvider)
-	: CachedListService<Game>(timeProvider, TimeSpan.FromMinutes(5)), IGameService
+	: CachedValueService<IReadOnlyList<Game>>(timeProvider, TimeSpan.FromMinutes(5)), IGameService
 {
 	/// <summary>
 	/// Returns all games of the convention.
 	/// </summary>
 	public Task<IReadOnlyList<Game>> GetAllAsync(string eventId, CancellationToken ct = default)
-		=> GetCachedAsync(eventId, token => repository.GetGamesAsync(eventId, token), ct);
+		=> GetCachedAsync(eventId, token => repository.GetGamesAsync(eventId, token), [], ct);
 
 	/// <summary>
 	/// Returns the distinct building names of all game tables that have a location.
