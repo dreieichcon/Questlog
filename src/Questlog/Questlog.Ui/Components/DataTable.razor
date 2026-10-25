@@ -1,0 +1,21 @@
+@typeparam TItem
+
+<div class="data-table">
+	<table>
+		<thead>
+			@Header
+		</thead>
+		<tbody>
+			@foreach (var (index, item) in Items.Index())
+			{
+				<tr id="@RowId(index)" class="data-row @(index == ActiveIndex ? "row-active" : string.Empty)">
+					@RowTemplate(item)
+				</tr>
+			}
+		</tbody>
+	</table>
+	@if (Items.Count == 0)
+	{
+		<div class="empty-text">@EmptyText</div>
+	}
+</div>
