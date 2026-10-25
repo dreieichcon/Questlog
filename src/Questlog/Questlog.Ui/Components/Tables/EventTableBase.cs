@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Components;
+using Questlog.Core.Display;
 using Questlog.Core.Interfaces;
 using Questlog.Core.Models;
 
@@ -19,6 +20,9 @@ public abstract class EventTableBase<TItem> : ComponentBase, IDisposable where T
 
 	[Parameter, EditorRequired]
 	public string EventId { get; set; } = string.Empty;
+
+	[Parameter]
+	public EventCallback<int> CycleLengthChanged { get; set; }
 
 	protected IReadOnlyList<TItem> Items { get; private set; } = [];
 
@@ -60,6 +64,7 @@ public abstract class EventTableBase<TItem> : ComponentBase, IDisposable where T
 
 		Items = [.. items.Where(item => item.Start > now).OrderBy(item => item.Start)];
 		ShowDay = SpansMultipleDays(Items);
+		await CycleLengthChanged.InvokeAsync(Math.Min(Items.Count, DisplayCycle.ItemsPerPage));
 	}
 
 	private bool SpansMultipleDays(IReadOnlyList<TItem> items)

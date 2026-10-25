@@ -1,0 +1,5 @@
+@page "/event/{EventId}/games"
+
+<ViewerFrame EventId="@EventId" ViewName="@Strings.Get("View_Games")" Context="viewer">
+	<GameTable EventId="@EventId" CycleLengthChanged="viewer.SetCycleLength"/>
+</ViewerFrame>

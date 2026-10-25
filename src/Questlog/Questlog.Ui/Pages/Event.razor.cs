@@ -19,10 +19,15 @@ public partial class Event : ComponentBase
 
 	private Convention? Convention { get; set; }
 
+	private bool IsLoaded { get; set; }
+
 	private IEnumerable<ViewOption> Views => Convention is null ? [] : CreateViews(Convention);
 
 	protected override async Task OnParametersSetAsync()
-		=> Convention = await ConventionService.GetAsync(EventId);
+	{
+		Convention = await ConventionService.GetAsync(EventId);
+		IsLoaded = true;
+	}
 
 	private IEnumerable<ViewOption> CreateViews(Convention convention)
 	{

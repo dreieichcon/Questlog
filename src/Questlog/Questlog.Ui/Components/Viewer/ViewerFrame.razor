@@ -1,0 +1,17 @@
+@if (IsLoaded)
+{
+	@if (Convention is null)
+	{
+		<MenuContainer>
+			<div class="viewer-text">@Strings.Format("Event_NotFound", EventId)</div>
+		</MenuContainer>
+	}
+	else
+	{
+		<ScreenFrame Title="@Convention.Name" LogoUrl="@Convention.LogoUrl">
+			<FooterLeft>@ViewName</FooterLeft>
+			<FooterRight><CyclePosition Length="_cycleLength"/></FooterRight>
+			<ChildContent>@ChildContent?.Invoke(this)</ChildContent>
+		</ScreenFrame>
+	}
+}

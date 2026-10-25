@@ -1,0 +1,5 @@
+@page "/event/{EventId}/program"
+
+<ViewerFrame EventId="@EventId" ViewName="@Strings.Get("View_Program")" Context="viewer">
+	<ProgramTable EventId="@EventId" CycleLengthChanged="viewer.SetCycleLength"/>
+</ViewerFrame>

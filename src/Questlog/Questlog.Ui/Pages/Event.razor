@@ -1,11 +1,11 @@
 @page "/event/{EventId}"
 
 <MenuContainer>
-	@if (Convention is null)
+	@if (IsLoaded && Convention is null)
 	{
 		<div class="event-text">@Strings.Format("Event_NotFound", EventId)</div>
 	}
-	else
+	else if (Convention is not null)
 	{
 		<div class="d-flex flex-row align-items-center" style="gap: 3rem;">
 			<Logo Url="@Convention.LogoUrl" Size="10rem"/>

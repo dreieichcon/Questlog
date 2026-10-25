@@ -1,4 +1,5 @@
 using Bunit;
+using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.DependencyInjection;
 using NSubstitute;
 using Questlog.Core.Interfaces;
@@ -92,6 +93,24 @@ public class GameTableTests : TableContext
 
 		Assert.AreEqual(0, table.FindAll("tbody tr").Count);
 		StringAssert.Contains(table.Find(".empty-text").TextContent, "Spielrunden");
+	}
+
+	[TestMethod]
+	[DataRow(3, 3)]
+	[DataRow(20, 20)]
+	[DataRow(25, 20)]
+	[DataRow(0, 0)]
+	public void Render_ReportsCycleLengthCappedAtMaxItems(int gameCount, int expectedLength)
+	{
+		SetupGames([.. Enumerable.Range(1, gameCount).Select(index => CreateGame($"Runde {index}", Now.AddHours(index)))]);
+		var cycleLength = -1;
+
+		Services.AddSingleton(_gameService);
+		Render<GameTable>(parameters => parameters
+			.Add(table => table.EventId, "con1")
+			.Add(table => table.CycleLengthChanged, EventCallback.Factory.Create<int>(this, length => cycleLength = length)));
+
+		Assert.AreEqual(expectedLength, cycleLength);
 	}
 
 	[TestMethod]
