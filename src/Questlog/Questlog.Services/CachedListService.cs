@@ -9,7 +9,7 @@ public abstract class CachedListService<T>(TimeProvider timeProvider, TimeSpan m
 
 	/// <summary>
 	/// Returns the cached items for the key. Fetches them if they are older than the maximum age.
-	/// A failed fetch is not cached and returns the last known items, or an empty list.
+	/// A failed fetch counts as an attempt and returns the last known items, or an empty list.
 	/// </summary>
 	protected async Task<IReadOnlyList<T>> GetCachedAsync(
 		string key,
@@ -30,10 +30,10 @@ public abstract class CachedListService<T>(TimeProvider timeProvider, TimeSpan m
 
 			var result = await fetch(ct);
 
-			if (result.IsSuccess)
-				slot.Entry = new CacheEntry(result.Value!, timeProvider.GetUtcNow());
+			var items = result.IsSuccess ? result.Value! : slot.Entry?.Items ?? [];
+			slot.Entry = new CacheEntry(items, timeProvider.GetUtcNow());
 
-			return slot.Entry?.Items ?? [];
+			return items;
 		}
 		finally
 		{
@@ -42,9 +42,9 @@ public abstract class CachedListService<T>(TimeProvider timeProvider, TimeSpan m
 	}
 
 	private bool IsFresh(CacheEntry? entry)
-		=> entry is not null && timeProvider.GetUtcNow() - entry.FetchedAt < maxAge;
+		=> entry is not null && timeProvider.GetUtcNow() - entry.AttemptedAt < maxAge;
 
-	private sealed record CacheEntry(IReadOnlyList<T> Items, DateTimeOffset FetchedAt);
+	private sealed record CacheEntry(IReadOnlyList<T> Items, DateTimeOffset AttemptedAt);
 
 	private sealed class CacheSlot
 	{

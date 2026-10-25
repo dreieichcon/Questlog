@@ -91,16 +91,32 @@ public class ConventionServiceTests
 	}
 
 	[TestMethod]
-	public async Task GetAllAsync_FirstFetchFails_ReturnsEmptyListAndRetriesNextCall()
+	public async Task GetAllAsync_FirstFetchFails_ReturnsEmptyListWithoutRetryWithinInterval()
 	{
 		_repository.GetConventionsAsync(Arg.Any<CancellationToken>()).Returns(ResultFactory.Failure<Core.Models.Convention>());
 		var service = CreateService();
 
 		var first = await service.GetAllAsync();
+		_timeProvider.Advance(TimeSpan.FromMinutes(30));
 		var second = await service.GetAllAsync();
 
 		Assert.IsEmpty(first);
 		Assert.IsEmpty(second);
+		await _repository.Received(1).GetConventionsAsync(Arg.Any<CancellationToken>());
+	}
+
+	[TestMethod]
+	public async Task GetAllAsync_AfterFailedFetchAndInterval_FetchesAgain()
+	{
+		_repository.GetConventionsAsync(Arg.Any<CancellationToken>()).Returns(ResultFactory.Failure<Core.Models.Convention>());
+		var service = CreateService();
+		await service.GetAllAsync();
+
+		_timeProvider.Advance(TimeSpan.FromMinutes(61));
+		SetupConventions("a");
+		var result = await service.GetAllAsync();
+
+		Assert.AreEqual("a", result.Single().Id);
 		await _repository.Received(2).GetConventionsAsync(Arg.Any<CancellationToken>());
 	}
 
@@ -119,19 +135,18 @@ public class ConventionServiceTests
 	}
 
 	[TestMethod]
-	public async Task GetAllAsync_FailureIsNotCached_NextCallFetchesAndReplacesStaleData()
+	public async Task GetAllAsync_ConcurrentCallsAndFetchFails_ShareOneFailedFetch()
 	{
-		SetupConventions("a");
+		var completion = new TaskCompletionSource<Demolite.Core.Models.Result<IReadOnlyList<Core.Models.Convention>>>();
+		_repository.GetConventionsAsync(Arg.Any<CancellationToken>()).Returns(completion.Task);
 		var service = CreateService();
-		await service.GetAllAsync();
 
-		_timeProvider.Advance(TimeSpan.FromHours(2));
-		_repository.GetConventionsAsync(Arg.Any<CancellationToken>()).Returns(ResultFactory.Failure<Core.Models.Convention>());
-		await service.GetAllAsync();
-		SetupConventions("b");
-		var result = await service.GetAllAsync();
+		var calls = Enumerable.Range(0, 5).Select(_ => service.GetAllAsync()).ToArray();
+		completion.SetResult(ResultFactory.Failure<Core.Models.Convention>());
+		var results = await Task.WhenAll(calls);
 
-		Assert.AreEqual("b", result.Single().Id);
+		await _repository.Received(1).GetConventionsAsync(Arg.Any<CancellationToken>());
+		Assert.IsTrue(results.All(x => x.Count == 0));
 	}
 
 	[TestMethod]
