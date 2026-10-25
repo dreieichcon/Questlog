@@ -1,12 +1,7 @@
-<div class="screen-frame @ThemeClass">
+<div class="screen-frame">
 	<header class="frame-header">
 		<div class="frame-title">
-			@if (!string.IsNullOrEmpty(LogoUrl))
-			{
-				<div class="frame-logo">
-					<img src="@LogoUrl" alt=""/>
-				</div>
-			}
+			<Logo Url="@LogoUrl"/>
 			<span class="frame-header-text">@Title</span>
 		</div>
 		<span class="frame-header-text"><Clock/></span>
