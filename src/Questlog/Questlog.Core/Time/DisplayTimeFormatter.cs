@@ -7,6 +7,8 @@ public class DisplayTimeFormatter(TimeProvider timeProvider, TimeZoneInfo timeZo
 {
 	private const string TimeFormat = "HH:mm";
 
+	private const string TimeWithSecondsFormat = "HH:mm:ss";
+
 	private const string DateAndTimeFormat = "yyyy-MM-dd HH:mm";
 
 	/// <summary>
@@ -14,6 +16,12 @@ public class DisplayTimeFormatter(TimeProvider timeProvider, TimeZoneInfo timeZo
 	/// </summary>
 	public string Time(DateTimeOffset? value)
 		=> value.HasValue ? ToLocal(value.Value).ToString(TimeFormat, CultureInfo.InvariantCulture) : string.Empty;
+
+	/// <summary>
+	/// Formats the time of day including seconds in the configured time zone.
+	/// </summary>
+	public string TimeWithSeconds(DateTimeOffset? value)
+		=> value.HasValue ? ToLocal(value.Value).ToString(TimeWithSecondsFormat, CultureInfo.InvariantCulture) : string.Empty;
 
 	/// <summary>
 	/// Formats date and time of day in the configured time zone.

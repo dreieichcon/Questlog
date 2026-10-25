@@ -65,6 +65,24 @@ public class DisplayTimeFormatterTests
 	}
 
 	[TestMethod]
+	public void TimeWithSeconds_ReturnsLocalTimeWithSeconds()
+	{
+		var formatter = CreateFormatter();
+
+		var result = formatter.TimeWithSeconds(new DateTimeOffset(2030, 7, 1, 10, 5, 9, TimeSpan.Zero));
+
+		Assert.AreEqual("12:05:09", result);
+	}
+
+	[TestMethod]
+	public void TimeWithSeconds_NullTimestamp_ReturnsEmptyString()
+	{
+		var formatter = CreateFormatter();
+
+		Assert.AreEqual(string.Empty, formatter.TimeWithSeconds(null));
+	}
+
+	[TestMethod]
 	public void DateAndTime_ReturnsIsoDateAndLocalTime()
 	{
 		var formatter = CreateFormatter();
