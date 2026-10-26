@@ -1,3 +1,4 @@
+using MudBlazor.Services;
 using Questlog.Components;
 using Questlog.Configuration;
 using Questlog.Core.Interfaces;
@@ -5,6 +6,7 @@ using Questlog.Ui;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddMudServices();
 builder.Services.AddRazorComponents()
 	.AddInteractiveServerComponents();
 

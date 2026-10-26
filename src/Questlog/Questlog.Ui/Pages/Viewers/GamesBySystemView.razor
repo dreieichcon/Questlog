@@ -1,0 +1,35 @@
+@page "/event/{EventId}/gamesBySystem"
+@using MudBlazor
+
+<div class="system-page">
+	<h1 class="system-title">@Strings.Get("View_GamesBySystem")</h1>
+	@if (_shares.Count == 0)
+	{
+		<div class="system-empty">@Strings.Get("GamesBySystem_Empty")</div>
+	}
+	else
+	{
+		<div class="system-body">
+			<div class="system-pie">
+				<MudChart T="double"
+				          ChartType="ChartType.Pie"
+				          ChartSeries="_series"
+				          ChartLabels="_labels"
+				          ChartOptions="_options"
+				          Width="100%"
+				          Height="100%"/>
+			</div>
+			<ul class="system-legend">
+				@for (var index = 0; index < _shares.Count; index++)
+				{
+					var share = _shares[index];
+					<li class="legend-entry">
+						<span class="legend-swatch" style="background-color: @_colors[index]"></span>
+						<span class="legend-name">@share.Name</span>
+						<span class="legend-value">@FormatValue(share)</span>
+					</li>
+				}
+			</ul>
+		</div>
+	}
+</div>

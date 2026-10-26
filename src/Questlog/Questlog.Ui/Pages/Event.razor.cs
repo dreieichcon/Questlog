@@ -41,6 +41,7 @@ public partial class Event : ComponentBase
 		{
 			yield return CreateView("View_Games", "games");
 			yield return CreateView("View_GamesPerBuilding", "gamesPerBuilding");
+			yield return CreateView("View_GamesBySystem", "gamesBySystem");
 		}
 
 		if (convention.HasProgramModule && convention.HasGameModule)

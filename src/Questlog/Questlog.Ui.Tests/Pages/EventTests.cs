@@ -70,7 +70,7 @@ public class EventTests : BunitContext
 	{
 		var page = RenderEvent(CreateConvention(program: false, games: true));
 
-		CollectionAssert.AreEqual(new[] { "event/c1/games", "event/c1/gamesPerBuilding" }, Hrefs(page));
+		CollectionAssert.AreEqual(new[] { "event/c1/games", "event/c1/gamesPerBuilding", "event/c1/gamesBySystem" }, Hrefs(page));
 	}
 
 	[TestMethod]
@@ -85,6 +85,7 @@ public class EventTests : BunitContext
 				"event/c1/program/rooms",
 				"event/c1/games",
 				"event/c1/gamesPerBuilding",
+				"event/c1/gamesBySystem",
 				"event/c1/programAndGames",
 			},
 			Hrefs(page));

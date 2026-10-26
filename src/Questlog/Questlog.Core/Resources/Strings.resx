@@ -40,4 +40,8 @@
   <data name="View_Games" xml:space="preserve"><value>Spielrunden</value></data>
   <data name="View_GamesPerBuilding" xml:space="preserve"><value>Spielrunden pro Gebäude</value></data>
   <data name="View_ProgramAndGames" xml:space="preserve"><value>Programm &amp; Spielrunden</value></data>
+  <data name="View_GamesBySystem" xml:space="preserve"><value>Spielrunden pro System</value></data>
+  <data name="System_Other" xml:space="preserve"><value>Sonstige</value></data>
+  <data name="System_Unknown" xml:space="preserve"><value>Unbekannt</value></data>
+  <data name="GamesBySystem_Empty" xml:space="preserve"><value>Es gibt keine Spielrunden für diese Veranstaltung</value></data>
 </root>

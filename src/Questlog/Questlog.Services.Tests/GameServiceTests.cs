@@ -134,6 +134,106 @@ public class GameServiceTests
 		CollectionAssert.AreEqual(new[] { "Main" }, result.ToArray());
 	}
 
+	private static Game[] CreateGames(string system, int count, string? version = null)
+		=> Enumerable.Range(1, count)
+			.Select(index =>
+			{
+				var game = ModelFactory.CreateGame($"{system}-{version}-{index}");
+				game.System = system;
+				game.SystemVersion = version;
+				return game;
+			})
+			.ToArray();
+
+	[TestMethod]
+	public async Task GetSystemSharesAsync_CountsGamesPerSystem()
+	{
+		SetupGames("event-1", [.. CreateGames("DnD", 6), .. CreateGames("Pathfinder", 5)]);
+		var service = CreateService();
+
+		var result = await service.GetSystemSharesAsync("event-1");
+
+		CollectionAssert.AreEqual(new[] { new SystemShare("DnD", 6), new SystemShare("Pathfinder", 5) }, result.ToArray());
+	}
+
+	[TestMethod]
+	public async Task GetSystemSharesAsync_VersionsOfOneSystem_AreMerged()
+	{
+		SetupGames("event-1", [.. CreateGames("DnD", 3, "5e"), .. CreateGames("DnD", 3, "3.5")]);
+		var service = CreateService();
+
+		var result = await service.GetSystemSharesAsync("event-1");
+
+		CollectionAssert.AreEqual(new[] { new SystemShare("DnD", 6) }, result.ToArray());
+	}
+
+	[TestMethod]
+	public async Task GetSystemSharesAsync_DifferentCasing_IsMerged()
+	{
+		SetupGames("event-1", [.. CreateGames("DnD", 3), .. CreateGames("dnd ", 3)]);
+		var service = CreateService();
+
+		var result = await service.GetSystemSharesAsync("event-1");
+
+		Assert.AreEqual(6, result.Single().Count);
+	}
+
+	[TestMethod]
+	public async Task GetSystemSharesAsync_SystemsBelowFourGames_AreGroupedAsOther()
+	{
+		SetupGames("event-1", [.. CreateGames("DnD", 5), .. CreateGames("Fate", 3), .. CreateGames("Cthulhu", 2), .. CreateGames("Kult", 1)]);
+		var service = CreateService();
+
+		var result = await service.GetSystemSharesAsync("event-1");
+
+		CollectionAssert.AreEqual(new[] { new SystemShare("DnD", 5), new SystemShare("Sonstige", 6) }, result.ToArray());
+	}
+
+	[TestMethod]
+	public async Task GetSystemSharesAsync_NoSystemBelowFourGames_HasNoOtherSlice()
+	{
+		SetupGames("event-1", CreateGames("DnD", 4));
+		var service = CreateService();
+
+		var result = await service.GetSystemSharesAsync("event-1");
+
+		Assert.DoesNotContain(share => share.Name == "Sonstige", result);
+	}
+
+	[TestMethod]
+	public async Task GetSystemSharesAsync_BlankSystem_IsCountedAsUnknown()
+	{
+		SetupGames("event-1", CreateGames("  ", 5));
+		var service = CreateService();
+
+		var result = await service.GetSystemSharesAsync("event-1");
+
+		CollectionAssert.AreEqual(new[] { new SystemShare("Unbekannt", 5) }, result.ToArray());
+	}
+
+	[TestMethod]
+	public async Task GetSystemSharesAsync_OtherSlice_IsAlwaysLast()
+	{
+		SetupGames("event-1", [.. CreateGames("Fate", 2), .. CreateGames("Cthulhu", 1), .. CreateGames("DnD", 5)]);
+		var service = CreateService();
+
+		var result = await service.GetSystemSharesAsync("event-1");
+
+		Assert.AreEqual("Sonstige", result[^1].Name);
+		Assert.AreEqual(3, result[^1].Count);
+	}
+
+	[TestMethod]
+	public async Task GetSystemSharesAsync_NoGames_ReturnsEmptyList()
+	{
+		SetupGames("event-1");
+		var service = CreateService();
+
+		var result = await service.GetSystemSharesAsync("event-1");
+
+		Assert.IsEmpty(result);
+	}
+
 	[TestMethod]
 	public async Task GetBuildingsAsync_NoGames_ReturnsEmptyList()
 	{
