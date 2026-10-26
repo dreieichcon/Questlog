@@ -121,6 +121,17 @@ public class DisplaySyncServiceTests
 	}
 
 	[TestMethod]
+	public void TickPage_ResetsDisplayIndexToZero()
+	{
+		var service = CreateService();
+		RaiseItemTicks(7);
+
+		RaisePageTick();
+
+		Assert.AreEqual(0, service.DisplayIndex);
+	}
+
+	[TestMethod]
 	public void WithRealTimer_AfterOnePage_IndexIsBackAtZeroAndDisplayHasSwitched()
 	{
 		var timeProvider = new FakeTimeProvider(new DateTimeOffset(2030, 11, 14, 10, 0, 0, TimeSpan.Zero));

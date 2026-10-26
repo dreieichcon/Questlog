@@ -12,8 +12,9 @@ builder.Services.AddQuestlog(QuestlogSettings.FromConfiguration(builder.Configur
 
 var app = builder.Build();
 
-// start the timers
+// start the timers and the display sync, so both see every tick
 _ = app.Services.GetRequiredService<ITimerService>();
+_ = app.Services.GetRequiredService<IDisplaySyncService>();
 
 app.UseAntiforgery();
 app.MapStaticAssets();

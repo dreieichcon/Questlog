@@ -31,6 +31,7 @@ public class DisplaySyncService : IDisplaySyncService
 	private void OnPageTick(object? sender, EventArgs e)
 	{
 		ActiveDisplay = ActiveDisplay == ActiveDisplay.Program ? ActiveDisplay.Games : ActiveDisplay.Program;
+		DisplayIndex = 0;
 		PageChanged?.Invoke(this, EventArgs.Empty);
 	}
 }
