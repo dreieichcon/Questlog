@@ -1,6 +1,5 @@
 services:
   questlog:
-    platform: linux/amd64
     image: hub.bvb-dreieich.de/questlog/questlog
     container_name: questlog
     restart: always
